@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "nome": "Camiseta Básica",
+    "preco": 49.9,
+    "descricao": "Camiseta 100% algodão, várias cores.",
+    "emoji": "👕"
+  },
+  {
+    "id": 2,
+    "nome": "Tênis Casual",
+    "preco": 189.9,
+    "descricao": "Tênis confortável para o dia a dia.",
+    "emoji": "👟"
+  },
+  {
+    "id": 3,
+    "nome": "Mochila Urbana",
+    "preco": 129.5,
+    "descricao": "Mochila resistente com compartimento para notebook.",
+    "emoji": "🎒"
+  },
+  {
+    "id": 4,
+    "nome": "Fone Bluetooth",
+    "preco": 99.0,
+    "descricao": "Fone sem fio com cancelamento de ruído.",
+    "emoji": "🎧"
+  },
+  {
+    "id": 5,
+    "nome": "Garrafa Térmica",
+    "preco": 59.9,
+    "descricao": "Mantém a temperatura por até 12 horas.",
+    "emoji": "🧴"
+  }
+]

@@ -1,0 +1,6 @@
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=escola
+DB_NAME=testedemylly
+JWT_SECRET=boutique__segredo_77xq1

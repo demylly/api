@@ -1,0 +1,2 @@
+Criar arquivo .env:
+JWT_SECRET=senha_muit0_forte_2h13u12h3i1uuhia

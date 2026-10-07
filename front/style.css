@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Montserrat:wght@400;500;600&family=Courier+Prime:wght@400;700&display=swap');
+:root{--bg:#0b0b0c;--card:#0f0e0d;--paper:#f3ead8;--gold:#c9a24b;--ink:#f4efe6;--muted:#9a9487;--line:#2a2825;--danger:#e0655a}
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+.navbar{display:flex;flex-direction:column;align-items:center;gap:14px;padding:30px 20px 0;border-bottom:1px solid var(--line)}
+.navbar-brand{font:500 38px 'Cormorant Garamond',serif;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);padding-left:.35em}
+.navbar-links{display:flex;gap:26px;flex-wrap:wrap;justify-content:center}
+.nav-btn{background:none;border:0;border-bottom:1px solid transparent;font:500 11px 'Montserrat',sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);padding:10px 2px 14px;cursor:pointer;transition:.2s}
+.nav-btn:hover{color:var(--ink)}
+.nav-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.badge{border:1px solid var(--gold);color:var(--gold);border-radius:50%;display:inline-grid;place-items:center;width:18px;height:18px;font-size:10px;letter-spacing:0;margin-left:4px}
+.navbar-user{align-items:center;justify-content:center;gap:12px;font:italic 500 16px 'Cormorant Garamond',serif;color:var(--gold);padding-bottom:6px}
+.nav-btn.logout{padding:4px 2px;color:var(--danger)}
+main{max-width:1000px;margin:0 auto;padding:50px 20px 80px}
+.secao h1{font:italic 500 46px 'Cormorant Garamond',serif;text-align:center;margin-bottom:44px}
+.secao h1::after{content:"";display:block;width:60px;height:1px;background:var(--gold);margin:16px auto 0}
+form{max-width:520px;margin:0 auto}
+label{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:2px}
+input{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:10px 0;margin-bottom:24px;color:var(--ink);font:400 16px 'Montserrat',sans-serif;color-scheme:dark}
+input:focus{outline:none;border-bottom-color:var(--gold)}
+select{width:100%;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:0;padding:10px 0;margin-bottom:24px;color:var(--ink);font:400 16px 'Montserrat',sans-serif;color-scheme:dark}
+select:focus{outline:none;border-bottom-color:var(--gold)}
+select option{background:var(--card);color:var(--ink)}
+.cep-status{display:block;margin:-18px 0 22px;font-size:12px;color:var(--gold);min-height:14px}
+.cep-status.erro{color:var(--danger)}
+input:disabled{opacity:.6}
+input.invalid{border-bottom-color:var(--danger)}
+.error-message{display:block;color:var(--danger);font-size:12px;margin:-16px 0 14px}
+.aviso{text-align:center;color:var(--muted);font:italic 500 20px 'Cormorant Garamond',serif}
+.link-secundario{text-align:center;margin-top:24px;color:var(--muted);font-size:13px}
+.link-secundario a{color:var(--gold);text-decoration:none}
+.submit-btn{width:100%;padding:16px;background:var(--gold);color:#0b0b0c;border:1px solid var(--gold);font:600 11px 'Montserrat',sans-serif;letter-spacing:.25em;text-transform:uppercase;cursor:pointer;transition:.25s}
+.submit-btn:hover{background:transparent;color:var(--gold)}
+/* produtos em galeria */
+.grid-produtos{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.card-produto{position:relative;background:var(--card);padding:44px 34px 34px;display:flex;flex-direction:column;transition:.3s}
+.card-produto:hover{background:#171513}
+.card-num{position:absolute;top:18px;right:22px;font:italic 500 16px 'Cormorant Garamond',serif;color:var(--gold)}
+.card-produto-emoji{font-size:78px;margin-bottom:22px;filter:saturate(.7)}
+.card-produto h3{font:500 28px 'Cormorant Garamond',serif}
+.card-produto-desc{color:var(--muted);font-size:13px;line-height:1.7;margin:8px 0 18px;flex:1}
+.card-produto-preco{font:700 30px 'Cormorant Garamond',serif;color:var(--gold);margin-bottom:18px}
+.card-produto .submit-btn{background:transparent;color:var(--gold)}
+.card-produto .submit-btn:hover{background:var(--gold);color:#0b0b0c}
+/* carrinho em recibo */
+.ticket{position:relative;max-width:540px;margin:0 auto 20px;background:var(--paper);color:#1a1814;font-family:'Courier Prime',monospace;padding:34px 30px 30px}
+.ticket::before{content:"* RECIBO DE COMPRA *";display:block;text-align:center;font-weight:700;letter-spacing:.12em;padding-bottom:16px;border-bottom:2px dashed #1a1814;margin-bottom:6px}
+.ticket::after{content:"";position:absolute;left:0;right:0;bottom:-10px;height:10px;background:radial-gradient(circle at 8px -2px,transparent 8px,var(--paper) 8.5px) 0 0/16px 10px repeat-x}
+.ticket:has(#btnFinalizar[hidden]){display:none}
+.item-carrinho{display:grid;grid-template-columns:1fr auto;grid-template-areas:"nome sub" "qtd rem";gap:6px 12px;align-items:center;padding:14px 0;border-bottom:1px dashed #1a1814}
+.item-nome{grid-area:nome;font-weight:700}
+.item-subtotal{grid-area:sub;font-weight:700;text-align:right}
+.item-qtd{grid-area:qtd;display:flex;align-items:center;gap:10px}
+.item-qtd button{width:26px;height:26px;border:1px solid #1a1814;background:transparent;font:700 15px 'Courier Prime',monospace;cursor:pointer}
+.item-qtd button:hover{background:#1a1814;color:var(--paper)}
+.item-remover{grid-area:rem;justify-self:end;background:none;border:0;color:#9b2c22;font:400 12px 'Courier Prime',monospace;text-decoration:underline;cursor:pointer}
+.carrinho-total{text-align:right;font-weight:700;font-size:22px;padding:18px 0 20px;border-bottom:2px dashed #1a1814;margin-bottom:22px}
+.ticket .submit-btn{background:#1a1814;color:var(--paper);border-color:#1a1814;font-family:'Courier Prime',monospace;font-weight:700}
+.ticket .submit-btn:hover{background:transparent;color:#1a1814}
+@media(max-width:560px){.navbar-brand{font-size:28px}.secao h1{font-size:36px}.card-produto{padding:40px 22px 26px}}
