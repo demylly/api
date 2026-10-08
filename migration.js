@@ -51,9 +51,10 @@ async function criar_estrutura() {
       }
     }
     console.log("Tabela 'Clientes' pronta!");
+    process.exit(1);
   } catch (error) {
     console.log(error);
   }
-  process.exit();
+  process.exit(1);
 }
 criar_estrutura();
