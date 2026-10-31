@@ -103,12 +103,117 @@ app.get("/Clientes/perfil", autenticar, async (req, res) => {
 
 // ---------- PRODUTOS (lidos de produtos.json) ----------
 const arquivoProdutos = path.join(__dirname, "produtos.json");
+const LIMITE_POR_PAGINA = 10; // quantidade fixa de produtos por página
 
+// Aceita tanto "preco_asc" quanto "menor_preco" (e o mesmo para o maior preço).
+const ORDENACOES = {
+  preco_asc: (a, b) => a.preco - b.preco || a.id - b.id,
+  menor_preco: (a, b) => a.preco - b.preco || a.id - b.id,
+  menor: (a, b) => a.preco - b.preco || a.id - b.id,
+  asc: (a, b) => a.preco - b.preco || a.id - b.id,
+  preco_desc: (a, b) => b.preco - a.preco || a.id - b.id,
+  maior_preco: (a, b) => b.preco - a.preco || a.id - b.id,
+  maior: (a, b) => b.preco - a.preco || a.id - b.id,
+  desc: (a, b) => b.preco - a.preco || a.id - b.id,
+};
+
+// Remove acentos e maiúsculas para a busca não depender de "ç", "ã", etc.
+function normalizarTexto(valor) {
+  return String(valor || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function lerPreco(valor, nomeParametro) {
+  if (valor === undefined || valor === null || String(valor).trim() === "") return null;
+  const numero = Number(String(valor).trim().replace(",", "."));
+  if (!Number.isFinite(numero) || numero < 0) {
+    const erro = new Error(`${nomeParametro} deve ser um número maior ou igual a zero`);
+    erro.status = 400;
+    throw erro;
+  }
+  return numero;
+}
+
+function lerPagina(valor) {
+  if (valor === undefined || valor === null || String(valor).trim() === "") return 1;
+  const texto = String(valor).trim();
+  if (!/^\d+$/.test(texto) || Number(texto) < 1) {
+    const erro = new Error("pagina deve ser um número inteiro maior ou igual a 1");
+    erro.status = 400;
+    throw erro;
+  }
+  return Number(texto);
+}
+
+// GET /produtos?nome=matrix&categoria=Ação&preco_min=8&preco_max=10&ordenar=preco_asc&pagina=1
+// Limite fixo de 10 produtos por página.
 app.get("/produtos", (req, res) => {
   try {
     const produtos = JSON.parse(fs.readFileSync(arquivoProdutos, "utf-8"));
-    res.status(200).json(produtos);
+
+    const nome = String(req.query.nome || "").trim();
+    const categoria = String(req.query.categoria || "").trim();
+    const precoMin = lerPreco(req.query.preco_min, "preco_min");
+    const precoMax = lerPreco(req.query.preco_max, "preco_max");
+    const pagina = lerPagina(req.query.pagina);
+    const ordenar = String(req.query.ordenar || req.query.ordem || req.query.sort || "").trim().toLowerCase();
+
+    if (precoMin !== null && precoMax !== null && precoMin > precoMax) {
+      return res.status(400).json({ erro: "preco_min não pode ser maior que preco_max" });
+    }
+    if (ordenar && !ORDENACOES[ordenar]) {
+      return res.status(400).json({ erro: "ordenar inválido. Use preco_asc (menor) ou preco_desc (maior)" });
+    }
+
+    const nomeBusca = normalizarTexto(nome);
+    const categoriaBusca = normalizarTexto(categoria);
+
+    let filtrados = produtos.filter((produto) => {
+      const passaNome = !nomeBusca || normalizarTexto(produto.nome).includes(nomeBusca);
+      const passaCategoria = !categoriaBusca || normalizarTexto(produto.categoria) === categoriaBusca;
+      const preco = Number(produto.preco);
+      const passaPrecoMin = precoMin === null || preco >= precoMin;
+      const passaPrecoMax = precoMax === null || preco <= precoMax;
+      return passaNome && passaCategoria && passaPrecoMin && passaPrecoMax;
+    });
+
+    if (ordenar) filtrados = [...filtrados].sort(ORDENACOES[ordenar]);
+
+    const total = filtrados.length;
+    const totalPaginas = Math.ceil(total / LIMITE_POR_PAGINA);
+    const inicio = (pagina - 1) * LIMITE_POR_PAGINA;
+    const produtosDaPagina = filtrados.slice(inicio, inicio + LIMITE_POR_PAGINA);
+
+    // Lista completa de categorias, usada para montar o filtro no site.
+    const categorias = [...new Set(produtos.map((p) => p.categoria).filter(Boolean))]
+      .sort((a, b) => a.localeCompare(b, "pt-BR"));
+
+    res.status(200).json({
+      produtos: produtosDaPagina,
+      paginacao: {
+        pagina,
+        limite: LIMITE_POR_PAGINA,
+        total,
+        totalPaginas,
+        temAnterior: pagina > 1,
+        temProxima: pagina < totalPaginas,
+      },
+      filtros: {
+        nome: nome || null,
+        categoria: categoria || null,
+        preco_min: precoMin,
+        preco_max: precoMax,
+        ordenar: ordenar || null,
+      },
+      categorias,
+    });
   } catch (error) {
+    if (error.status === 400) {
+      return res.status(400).json({ erro: error.message });
+    }
     res.status(500).json({ erro: "Não foi possível ler produtos.json: " + error.message });
   }
 });

@@ -1,6 +1,7 @@
 // ===================== CONFIG =====================
 // Ajuste aqui se sua API rodar em outro endereço/porta
 const API_BASE = location.protocol === "file:" ? "http://localhost:3002" : "";
+let paginaAtual = 1;
 
 // ===================== NAVEGAÇÃO =====================
 function mostrarSecao(nome) {
@@ -11,7 +12,7 @@ function mostrarSecao(nome) {
         btn.classList.toggle("active", btn.dataset.secao === nome);
     });
 
-    if (nome === "produtos") carregarProdutos();
+    if (nome === "produtos") carregarProdutos(paginaAtual);
     if (nome === "carrinho") renderCarrinho();
 }
 
@@ -184,48 +185,178 @@ document.getElementById("formCadastro").addEventListener("submit", async (e) => 
 });
 
 // ===================== PRODUTOS =====================
-async function carregarProdutos() {
+function pegarFiltros() {
+    return {
+        nome: document.getElementById("buscaNome").value.trim(),
+        categoria: document.getElementById("filtroCategoria").value,
+        preco_min: document.getElementById("filtroPrecoMin").value.trim(),
+        preco_max: document.getElementById("filtroPrecoMax").value.trim(),
+        ordenar: document.getElementById("filtroOrdenar").value,
+    };
+}
+
+function montarUrlProdutos(filtros, pagina) {
+    const params = new URLSearchParams();
+    if (filtros.nome) params.set("nome", filtros.nome);
+    if (filtros.categoria) params.set("categoria", filtros.categoria);
+    if (filtros.preco_min) params.set("preco_min", filtros.preco_min);
+    if (filtros.preco_max) params.set("preco_max", filtros.preco_max);
+    if (filtros.ordenar) params.set("ordenar", filtros.ordenar);
+    params.set("pagina", String(pagina));
+    return `${API_BASE}/produtos?${params.toString()}`;
+}
+
+function atualizarCategorias(categorias, selecionada) {
+    const select = document.getElementById("filtroCategoria");
+    const valorAtual = selecionada || "";
+    select.innerHTML = '<option value="">Todas as categorias</option>';
+
+    categorias.forEach((categoria) => {
+        const opcao = document.createElement("option");
+        opcao.value = categoria;
+        opcao.textContent = categoria;
+        select.appendChild(opcao);
+    });
+
+    select.value = categorias.includes(valorAtual) ? valorAtual : "";
+}
+
+function renderizarProdutos(produtos) {
+    const lista = document.getElementById("listaProdutos");
+    lista.innerHTML = "";
+
+    if (produtos.length === 0) {
+        lista.innerHTML = '<p class="aviso sem-resultados">Nenhum produto encontrado com esses filtros.</p>';
+        return;
+    }
+
+    produtos.forEach((produto) => {
+        const card = document.createElement("div");
+        card.className = "card-produto";
+        card.innerHTML = `
+            <span class="card-num">Nº ${String(produto.id).padStart(2, "0")}</span>
+            <span class="card-produto-categoria">${produto.categoria || "Sem categoria"}</span>
+            <div class="card-produto-emoji">${produto.emoji || "🛒"}</div>
+            <h3>${produto.nome}</h3>
+            <p class="card-produto-desc">${produto.descricao || ""}</p>
+            <p class="card-produto-preco">R$ ${Number(produto.preco).toFixed(2).replace(".", ",")}</p>
+            <button class="submit-btn" data-add-id="${produto.id}">Adicionar</button>
+        `;
+        lista.appendChild(card);
+    });
+
+    lista.querySelectorAll("[data-add-id]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const produto = produtos.find((p) => String(p.id) === btn.dataset.addId);
+            adicionarAoCarrinho(produto);
+        });
+    });
+}
+
+function renderizarPaginacao(paginacao) {
+    const nav = document.getElementById("paginacao");
+    nav.innerHTML = "";
+    if (!paginacao || paginacao.total === 0) return;
+
+    const info = document.createElement("span");
+    info.className = "paginacao-info";
+    info.textContent = `Página ${paginacao.pagina} de ${paginacao.totalPaginas} · ${paginacao.total} produto(s) encontrado(s) · ${paginacao.limite} por página`;
+    nav.appendChild(info);
+
+    const criarBotao = (texto, destino, desabilitado, ativo) => {
+        const botao = document.createElement("button");
+        botao.type = "button";
+        botao.className = "pag-btn" + (ativo ? " ativo" : "");
+        botao.textContent = texto;
+        botao.disabled = Boolean(desabilitado);
+        if (!desabilitado && !ativo) {
+            botao.addEventListener("click", () => irParaPagina(destino));
+        }
+        return botao;
+    };
+
+    nav.appendChild(criarBotao("Anterior", paginacao.pagina - 1, !paginacao.temAnterior, false));
+    for (let numero = 1; numero <= paginacao.totalPaginas; numero += 1) {
+        nav.appendChild(criarBotao(String(numero), numero, false, numero === paginacao.pagina));
+    }
+    nav.appendChild(criarBotao("Próxima", paginacao.pagina + 1, !paginacao.temProxima, false));
+}
+
+function irParaPagina(pagina) {
+    if (pagina < 1) return;
+    paginaAtual = pagina;
+    carregarProdutos(pagina).then(() => {
+        document.getElementById("secao-produtos").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+}
+
+async function carregarProdutos(pagina = 1) {
     const lista = document.getElementById("listaProdutos");
     const erroEl = document.getElementById("produtosErro");
+    const resumoEl = document.getElementById("resumoProdutos");
+    const nav = document.getElementById("paginacao");
     erroEl.textContent = "";
+    resumoEl.textContent = "";
     lista.innerHTML = "<p>Carregando produtos...</p>";
+    nav.innerHTML = "";
+
+    paginaAtual = Number(pagina) || 1;
+    const filtros = pegarFiltros();
 
     try {
-        const resposta = await fetch(`${API_BASE}/produtos`);
-        const produtos = await resposta.json();
+        const resposta = await fetch(montarUrlProdutos(filtros, paginaAtual));
+        const dados = await resposta.json();
 
         if (!resposta.ok) {
             lista.innerHTML = "";
-            erroEl.textContent = produtos.erro || "Não foi possível carregar os produtos.";
+            erroEl.textContent = dados.erro || "Não foi possível carregar os produtos.";
             return;
         }
 
-        lista.innerHTML = "";
-        produtos.forEach((produto, idx) => {
-            const card = document.createElement("div");
-            card.className = "card-produto";
-            card.innerHTML = `
-                <span class="card-num">Nº ${String(idx + 1).padStart(2, "0")}</span>
-                <div class="card-produto-emoji">${produto.emoji || "🛒"}</div>
-                <h3>${produto.nome}</h3>
-                <p class="card-produto-desc">${produto.descricao || ""}</p>
-                <p class="card-produto-preco">R$ ${Number(produto.preco).toFixed(2).replace(".", ",")}</p>
-                <button class="submit-btn" data-add-id="${produto.id}">Adicionar</button>
-            `;
-            lista.appendChild(card);
-        });
-
-        lista.querySelectorAll("[data-add-id]").forEach((btn) => {
-            btn.addEventListener("click", () => {
-                const produto = produtos.find((p) => String(p.id) === btn.dataset.addId);
-                adicionarAoCarrinho(produto);
-            });
-        });
+        const paginacao = dados.paginacao;
+        paginaAtual = paginacao.pagina;
+        atualizarCategorias(dados.categorias || [], filtros.categoria);
+        resumoEl.textContent = paginacao.total === 1
+            ? "1 produto encontrado"
+            : `${paginacao.total} produtos encontrados`;
+        renderizarProdutos(dados.produtos || []);
+        renderizarPaginacao(paginacao);
     } catch (error) {
         lista.innerHTML = "";
+        resumoEl.textContent = "";
+        nav.innerHTML = "";
         erroEl.textContent = "Erro ao conectar com o servidor: " + error.message;
     }
 }
+
+// ----- Eventos dos filtros -----
+document.getElementById("formFiltros").addEventListener("submit", (e) => {
+    e.preventDefault();
+    paginaAtual = 1;
+    carregarProdutos(1);
+});
+
+document.getElementById("btnLimparFiltros").addEventListener("click", () => {
+    document.getElementById("formFiltros").reset();
+    paginaAtual = 1;
+    carregarProdutos(1);
+});
+
+let timerBusca = null;
+document.getElementById("buscaNome").addEventListener("input", () => {
+    clearTimeout(timerBusca);
+    timerBusca = setTimeout(() => {
+        paginaAtual = 1;
+        carregarProdutos(1);
+    }, 400);
+});
+
+["filtroCategoria", "filtroOrdenar", "filtroPrecoMin", "filtroPrecoMax"].forEach((id) => {
+    document.getElementById(id).addEventListener("change", () => {
+        paginaAtual = 1;
+        carregarProdutos(1);
+    });
+});
 
 // ===================== CARRINHO (localStorage) =====================
 // Obs: a API atual não tem endpoints de carrinho, então ele fica salvo no

@@ -3,6 +3,7 @@
     "id": 1,
     "nome": "Camiseta Básica",
     "preco": 49.9,
+    "categoria": "Vestuário",
     "descricao": "Camiseta 100% algodão, várias cores.",
     "emoji": "👕"
   },
@@ -10,6 +11,7 @@
     "id": 2,
     "nome": "Tênis Casual",
     "preco": 189.9,
+    "categoria": "Calçados",
     "descricao": "Tênis confortável para o dia a dia.",
     "emoji": "👟"
   },
@@ -17,6 +19,7 @@
     "id": 3,
     "nome": "Mochila Urbana",
     "preco": 129.5,
+    "categoria": "Acessórios",
     "descricao": "Mochila resistente com compartimento para notebook.",
     "emoji": "🎒"
   },
@@ -24,6 +27,7 @@
     "id": 4,
     "nome": "Fone Bluetooth",
     "preco": 99.0,
+    "categoria": "Eletrônicos",
     "descricao": "Fone sem fio com cancelamento de ruído.",
     "emoji": "🎧"
   },
@@ -31,7 +35,408 @@
     "id": 5,
     "nome": "Garrafa Térmica",
     "preco": 59.9,
+    "categoria": "Acessórios",
     "descricao": "Mantém a temperatura por até 12 horas.",
     "emoji": "🧴"
+  },
+  {
+    "id": 6,
+    "nome": "Matrix",
+    "preco": 9.9,
+    "categoria": "Ação",
+    "descricao": "Um programador descobre que a realidade é uma simulação.",
+    "emoji": "💥"
+  },
+  {
+    "id": 7,
+    "nome": "Gladiador",
+    "preco": 8.9,
+    "categoria": "Ação",
+    "descricao": "Um general romano busca vingança nas arenas do Coliseu.",
+    "emoji": "💥"
+  },
+  {
+    "id": 8,
+    "nome": "O Cavaleiro das Trevas",
+    "preco": 9.9,
+    "categoria": "Ação",
+    "descricao": "Batman enfrenta o Coringa em uma batalha pelo destino de Gotham.",
+    "emoji": "💥"
+  },
+  {
+    "id": 9,
+    "nome": "John Wick",
+    "preco": 8.5,
+    "categoria": "Ação",
+    "descricao": "Um ex-assassino retorna para acertar contas com o crime organizado.",
+    "emoji": "💥"
+  },
+  {
+    "id": 10,
+    "nome": "Mad Max: Estrada da Fúria",
+    "preco": 9.5,
+    "categoria": "Ação",
+    "descricao": "Perseguição explosiva em um deserto pós-apocalíptico.",
+    "emoji": "💥"
+  },
+  {
+    "id": 11,
+    "nome": "Vingadores: Ultimato",
+    "preco": 349.9,
+    "categoria": "Ação",
+    "descricao": "Box de colecionador com luva, pôster e disco de extras.",
+    "emoji": "💥"
+  },
+  {
+    "id": 12,
+    "nome": "Indiana Jones e os Caçadores da Arca Perdida",
+    "preco": 8.9,
+    "categoria": "Aventura",
+    "descricao": "O arqueólogo mais famoso do cinema em busca de uma relíquia lendária.",
+    "emoji": "🗺️"
+  },
+  {
+    "id": 13,
+    "nome": "Jurassic Park",
+    "preco": 9.5,
+    "categoria": "Aventura",
+    "descricao": "Dinossauros voltam à vida em um parque temático que sai do controle.",
+    "emoji": "🗺️"
+  },
+  {
+    "id": 14,
+    "nome": "O Senhor dos Anéis: A Sociedade do Anel",
+    "preco": 249.9,
+    "categoria": "Aventura",
+    "descricao": "Edição estendida de colecionador em 4K.",
+    "emoji": "🗺️"
+  },
+  {
+    "id": 15,
+    "nome": "Piratas do Caribe: A Maldição do Pérola Negra",
+    "preco": 8.9,
+    "categoria": "Aventura",
+    "descricao": "Jack Sparrow navega em busca de tesouros e aventuras.",
+    "emoji": "🗺️"
+  },
+  {
+    "id": 16,
+    "nome": "De Volta para o Futuro",
+    "preco": 8.5,
+    "categoria": "Aventura",
+    "descricao": "Marty McFly viaja no tempo em um DeLorean.",
+    "emoji": "🗺️"
+  },
+  {
+    "id": 17,
+    "nome": "Toy Story",
+    "preco": 7.9,
+    "categoria": "Animação",
+    "descricao": "Brinquedos ganham vida quando ninguém está olhando.",
+    "emoji": "🧸"
+  },
+  {
+    "id": 18,
+    "nome": "O Rei Leão",
+    "preco": 8.9,
+    "categoria": "Animação",
+    "descricao": "Simba precisa assumir seu lugar como rei da savana.",
+    "emoji": "🧸"
+  },
+  {
+    "id": 19,
+    "nome": "Frozen",
+    "preco": 8.5,
+    "categoria": "Animação",
+    "descricao": "Duas irmãs vivem uma aventura congelante em Arendelle.",
+    "emoji": "🧸"
+  },
+  {
+    "id": 20,
+    "nome": "Shrek",
+    "preco": 7.5,
+    "categoria": "Animação",
+    "descricao": "Um ogro embarca em uma missão ao lado de um burro falante.",
+    "emoji": "🧸"
+  },
+  {
+    "id": 21,
+    "nome": "A Viagem de Chihiro",
+    "preco": 9.5,
+    "categoria": "Animação",
+    "descricao": "Uma menina entra em um mundo mágico de espíritos.",
+    "emoji": "🧸"
+  },
+  {
+    "id": 22,
+    "nome": "Homem-Aranha: Através do Aranhaverso",
+    "preco": 10.9,
+    "categoria": "Animação",
+    "descricao": "Miles Morales enfrenta novas dimensões e versões do Aranhaverso.",
+    "emoji": "🧸"
+  },
+  {
+    "id": 23,
+    "nome": "Se Beber, Não Case!",
+    "preco": 7.9,
+    "categoria": "Comédia",
+    "descricao": "Uma despedida de solteiro em Las Vegas que sai completamente do controle.",
+    "emoji": "😂"
+  },
+  {
+    "id": 24,
+    "nome": "A Máscara",
+    "preco": 6.9,
+    "categoria": "Comédia",
+    "descricao": "Um tímido bancário encontra uma máscara mágica e vira outra pessoa.",
+    "emoji": "😂"
+  },
+  {
+    "id": 25,
+    "nome": "Meninas Malvadas",
+    "preco": 7.5,
+    "categoria": "Comédia",
+    "descricao": "Uma nova aluna entra no grupo mais popular da escola.",
+    "emoji": "😂"
+  },
+  {
+    "id": 26,
+    "nome": "O Auto da Compadecida",
+    "preco": 8.5,
+    "categoria": "Comédia",
+    "descricao": "João Grilo e Chicó vivem aventuras no sertão nordestino.",
+    "emoji": "😂"
+  },
+  {
+    "id": 27,
+    "nome": "Todo Mundo em Pânico",
+    "preco": 6.9,
+    "categoria": "Comédia",
+    "descricao": "Paródia dos filmes de terror dos anos 90.",
+    "emoji": "😂"
+  },
+  {
+    "id": 28,
+    "nome": "O Poderoso Chefão",
+    "preco": 499.9,
+    "categoria": "Drama",
+    "descricao": "Trilogia remasterizada em 4K com livreto exclusivo.",
+    "emoji": "🎭"
+  },
+  {
+    "id": 29,
+    "nome": "A Lista de Schindler",
+    "preco": 9.9,
+    "categoria": "Drama",
+    "descricao": "Um empresário salva a vida de judeus durante o Holocausto.",
+    "emoji": "🎭"
+  },
+  {
+    "id": 30,
+    "nome": "Forrest Gump",
+    "preco": 8.9,
+    "categoria": "Drama",
+    "descricao": "A história de um homem simples que presencia grandes momentos do século XX.",
+    "emoji": "🎭"
+  },
+  {
+    "id": 31,
+    "nome": "Cidade de Deus",
+    "preco": 9.5,
+    "categoria": "Drama",
+    "descricao": "A violência das favelas cariocas vista por seus moradores.",
+    "emoji": "🎭"
+  },
+  {
+    "id": 32,
+    "nome": "Clube da Luta",
+    "preco": 9.5,
+    "categoria": "Drama",
+    "descricao": "Dois homens criam um clube secreto que foge do controle.",
+    "emoji": "🎭"
+  },
+  {
+    "id": 33,
+    "nome": "Central do Brasil",
+    "preco": 8.5,
+    "categoria": "Drama",
+    "descricao": "Uma professora e um menino cruzam o Brasil em busca de sua família.",
+    "emoji": "🎭"
+  },
+  {
+    "id": 34,
+    "nome": "Interestelar",
+    "preco": 299.9,
+    "categoria": "Ficção Científica",
+    "descricao": "Edição especial de colecionador com disco de extras.",
+    "emoji": "🚀"
+  },
+  {
+    "id": 35,
+    "nome": "A Origem",
+    "preco": 9.9,
+    "categoria": "Ficção Científica",
+    "descricao": "Um especialista invade sonhos para realizar um roubo impossível.",
+    "emoji": "🚀"
+  },
+  {
+    "id": 36,
+    "nome": "Blade Runner 2049",
+    "preco": 10.5,
+    "categoria": "Ficção Científica",
+    "descricao": "Um caçador de androides descobre um segredo que pode mudar o futuro.",
+    "emoji": "🚀"
+  },
+  {
+    "id": 37,
+    "nome": "Duna",
+    "preco": 399.9,
+    "categoria": "Ficção Científica",
+    "descricao": "Box de colecionador com arte exclusiva e disco de bônus.",
+    "emoji": "🚀"
+  },
+  {
+    "id": 38,
+    "nome": "E.T. O Extraterrestre",
+    "preco": 8.5,
+    "categoria": "Ficção Científica",
+    "descricao": "Um menino faz amizade com um alienígena perdido na Terra.",
+    "emoji": "🚀"
+  },
+  {
+    "id": 39,
+    "nome": "Ex Machina",
+    "preco": 9.5,
+    "categoria": "Ficção Científica",
+    "descricao": "Um programador é convidado a testar uma inteligência artificial.",
+    "emoji": "🚀"
+  },
+  {
+    "id": 40,
+    "nome": "O Exorcista",
+    "preco": 8.9,
+    "categoria": "Terror",
+    "descricao": "Uma menina é possuída por uma força demoníaca.",
+    "emoji": "👻"
+  },
+  {
+    "id": 41,
+    "nome": "A Hora do Pesadelo",
+    "preco": 7.9,
+    "categoria": "Terror",
+    "descricao": "Freddy Krueger assombra os sonhos de adolescentes.",
+    "emoji": "👻"
+  },
+  {
+    "id": 42,
+    "nome": "It: A Coisa",
+    "preco": 8.5,
+    "categoria": "Terror",
+    "descricao": "Um grupo de amigos enfrenta um palhaço terrível em Derry.",
+    "emoji": "👻"
+  },
+  {
+    "id": 43,
+    "nome": "Hereditário",
+    "preco": 9.5,
+    "categoria": "Terror",
+    "descricao": "Uma família descobre segredos assustadores após uma perda.",
+    "emoji": "👻"
+  },
+  {
+    "id": 44,
+    "nome": "O Iluminado",
+    "preco": 8.9,
+    "categoria": "Terror",
+    "descricao": "Um escritor e sua família se isolam em um hotel assombrado.",
+    "emoji": "👻"
+  },
+  {
+    "id": 45,
+    "nome": "Psicose",
+    "preco": 8.5,
+    "categoria": "Suspense",
+    "descricao": "Um motel isolado guarda segredos perturbadores.",
+    "emoji": "🕵️"
+  },
+  {
+    "id": 46,
+    "nome": "Seven: Os Sete Crimes Capitais",
+    "preco": 9.5,
+    "categoria": "Suspense",
+    "descricao": "Dois detetives caçam um assassino que usa os pecados capitais.",
+    "emoji": "🕵️"
+  },
+  {
+    "id": 47,
+    "nome": "Garota Exemplar",
+    "preco": 9.9,
+    "categoria": "Suspense",
+    "descricao": "O desaparecimento de uma mulher revela uma teia de mentiras.",
+    "emoji": "🕵️"
+  },
+  {
+    "id": 48,
+    "nome": "O Silêncio dos Inocentes",
+    "preco": 9.9,
+    "categoria": "Suspense",
+    "descricao": "Uma agente do FBI pede ajuda a um assassino para capturar outro.",
+    "emoji": "🕵️"
+  },
+  {
+    "id": 49,
+    "nome": "Janela Indiscreta",
+    "preco": 8.5,
+    "categoria": "Suspense",
+    "descricao": "Um fotógrafo observa seus vizinhos e desconfia de um crime.",
+    "emoji": "🕵️"
+  },
+  {
+    "id": 50,
+    "nome": "Diário de uma Paixão",
+    "preco": 7.9,
+    "categoria": "Romance",
+    "descricao": "Um amor improvável marcado por escolhas e lembranças.",
+    "emoji": "❤️"
+  },
+  {
+    "id": 51,
+    "nome": "Simplesmente Amor",
+    "preco": 8.5,
+    "categoria": "Romance",
+    "descricao": "Histórias de amor se cruzam no período de Natal.",
+    "emoji": "❤️"
+  },
+  {
+    "id": 52,
+    "nome": "Cartas para Julieta",
+    "preco": 7.5,
+    "categoria": "Romance",
+    "descricao": "Uma jovem encontra cartas de amor em Verona e decide ajudar.",
+    "emoji": "❤️"
+  },
+  {
+    "id": 53,
+    "nome": "Casablanca",
+    "preco": 8.9,
+    "categoria": "Romance",
+    "descricao": "Um clássico romance durante a Segunda Guerra Mundial.",
+    "emoji": "❤️"
+  },
+  {
+    "id": 54,
+    "nome": "A Marcha dos Pinguins",
+    "preco": 7.9,
+    "categoria": "Documentário",
+    "descricao": "A jornada de pinguins-imperadores na Antártida.",
+    "emoji": "🌍"
+  },
+  {
+    "id": 55,
+    "nome": "Planeta Terra: As Maravilhas da Natureza",
+    "preco": 8.9,
+    "categoria": "Documentário",
+    "descricao": "Um documentário que mostra a beleza e a diversidade do planeta.",
+    "emoji": "🌍"
   }
 ]

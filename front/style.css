@@ -43,6 +43,22 @@ input.invalid{border-bottom-color:var(--danger)}
 .card-produto-preco{font:700 30px 'Cormorant Garamond',serif;color:var(--gold);margin-bottom:18px}
 .card-produto .submit-btn{background:transparent;color:var(--gold)}
 .card-produto .submit-btn:hover{background:var(--gold);color:#0b0b0c}
+/* filtros de produtos */
+.filtros-produtos{display:grid;grid-template-columns:2fr 1.3fr .9fr .9fr 1.2fr;gap:18px;align-items:end;background:var(--card);border:1px solid var(--line);padding:26px;margin-bottom:26px}
+.filtros-produtos input,.filtros-produtos select{margin-bottom:0}
+.filtros-acoes{grid-column:1/-1;display:flex;justify-content:flex-end;gap:12px;border-top:1px solid var(--line);padding-top:20px}
+.filtros-acoes .submit-btn{width:auto;padding:13px 36px}
+.btn-limpar{background:transparent;border:1px solid var(--line);color:var(--muted);padding:13px 24px;font:500 10px 'Montserrat',sans-serif;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn-limpar:hover{border-color:var(--gold);color:var(--gold)}
+.resumo-produtos{color:var(--muted);font:500 11px 'Montserrat',sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px;min-height:14px}
+.sem-resultados{grid-column:1/-1;background:var(--card);padding:60px 20px;border:0}
+.card-produto-categoria{position:absolute;top:18px;left:22px;font:500 9px 'Montserrat',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);padding:4px 8px}
+.paginacao{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;margin-top:30px}
+.paginacao-info{flex-basis:100%;text-align:center;color:var(--muted);font-size:12px;letter-spacing:.06em;margin-bottom:8px}
+.pag-btn{min-width:40px;height:40px;padding:0 12px;border:1px solid var(--line);background:transparent;color:var(--muted);font:500 11px 'Montserrat',sans-serif;letter-spacing:.08em;cursor:pointer;transition:.2s}
+.pag-btn:hover:not(:disabled):not(.ativo){border-color:var(--gold);color:var(--gold)}
+.pag-btn.ativo{background:var(--gold);border-color:var(--gold);color:#0b0b0c;cursor:default}
+.pag-btn:disabled{opacity:.35;cursor:not-allowed}
 /* carrinho em recibo */
 .ticket{position:relative;max-width:540px;margin:0 auto 20px;background:var(--paper);color:#1a1814;font-family:'Courier Prime',monospace;padding:34px 30px 30px}
 .ticket::before{content:"* RECIBO DE COMPRA *";display:block;text-align:center;font-weight:700;letter-spacing:.12em;padding-bottom:16px;border-bottom:2px dashed #1a1814;margin-bottom:6px}
@@ -58,4 +74,5 @@ input.invalid{border-bottom-color:var(--danger)}
 .carrinho-total{text-align:right;font-weight:700;font-size:22px;padding:18px 0 20px;border-bottom:2px dashed #1a1814;margin-bottom:22px}
 .ticket .submit-btn{background:#1a1814;color:var(--paper);border-color:#1a1814;font-family:'Courier Prime',monospace;font-weight:700}
 .ticket .submit-btn:hover{background:transparent;color:#1a1814}
-@media(max-width:560px){.navbar-brand{font-size:28px}.secao h1{font-size:36px}.card-produto{padding:40px 22px 26px}}
+@media(max-width:820px){.filtros-produtos{grid-template-columns:1fr 1fr}.filtro-busca{grid-column:1/-1}.filtros-acoes{justify-content:stretch}.filtros-acoes .submit-btn,.btn-limpar{flex:1}}
+@media(max-width:560px){.navbar-brand{font-size:28px}.secao h1{font-size:36px}.card-produto{padding:40px 22px 26px}.filtros-produtos{grid-template-columns:1fr}.filtro-busca{grid-column:auto}.filtros-acoes{flex-direction:column}.filtros-acoes .submit-btn,.btn-limpar{width:100%}}
